@@ -1,0 +1,38 @@
+services:
+  mariadb:
+    image: mariadb:11.4
+    container_name: moodle-db
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpass
+      MYSQL_DATABASE: moodle
+      MYSQL_USER: moodle
+      MYSQL_PASSWORD: moodlepass
+    volumes:
+      - ./volumes/db:/var/lib/mysql
+      - ./mariadb/conf:/etc/mysql/conf.d
+    restart: unless-stopped
+
+  moodle:
+    build: ./moodle
+    container_name: moodle-app
+    ports:
+      - "8080:80"
+    volumes:
+      - ./volumes/moodledata:/var/moodledata
+    depends_on:
+      - mariadb
+    restart: unless-stopped
+
+  moodle-cron:
+    image: localhost/moodle_moodle:latest
+    container_name: moodle-cron
+    command: >
+      sh -c "while true; do
+               php /var/www/html/admin/cli/cron.php;
+               sleep 60;
+             done"
+    volumes:
+      - ./volumes/moodledata:/var/moodledata
+    depends_on:
+      - moodle
+    restart: unless-stopped

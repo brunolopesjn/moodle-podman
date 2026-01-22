@@ -1,0 +1,54 @@
+# =========================
+# Volumes persistentes
+# =========================
+/volumes/db/
+/volumes/moodledata/
+
+# =========================
+# Arquivos gerados pelo Moodle
+# =========================
+/moodle/vendor/
+/moodle/node_modules/
+/moodle/lang/*/
+/moodle/cache/
+/moodle/temp/
+/moodle/localcache/
+/moodle/trashdir/
+
+# =========================
+# Configurações sensíveis (opcional)
+# =========================
+# Descomente se NÃO quiser versionar config.php
+# /moodle/config/config.php
+
+# =========================
+# Logs
+# =========================
+*.log
+/logs/
+
+# =========================
+# Composer
+# =========================
+composer.phar
+/composer.lock
+
+# =========================
+# Sistema operacional
+# =========================
+.DS_Store
+Thumbs.db
+
+# =========================
+# IDEs e editores
+# =========================
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# =========================
+# Podman / Docker
+# =========================
+*.pid
+.env
